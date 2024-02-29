@@ -1,0 +1,37 @@
+            <!-- index.html -->
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Hospital Management</title>
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+            </head>
+            <body align="center">
+                <h1 align="center">Unified Medical Database</h1>
+                <br>
+                <br>
+                <hr>
+                <!-- Add a search input and button -->
+                <div>
+                    <h2>Search By Patient ID</h2>
+                    <input type="text" id="searchInput" placeholder="Enter Patient ID">
+                    <button onclick="searchPatient()">Search</button>
+                </div>
+
+                <br>
+                <hr>
+                <br>
+
+                <h2>View All Entries</h2>
+                <a href="/patients">View Patients</a>
+                <a href="/doctors">View Doctors</a>
+                <a href="/hospitals">View Hospitals</a>
+
+                <br>
+                <hr>
+                <br>
+                <h2>Add New Entries</h2>
+                <script src="{{ url_for('static', filename='app.js') }}"></script>
+            </body>
+            </html>

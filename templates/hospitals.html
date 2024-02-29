@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitals</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+  <h1>Hospitals</h1>
+    <table class="hospitals"> 
+      <thead>
+        <tr>
+          <th>Hospital ID</th>
+          <th>Hospital Name</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for hospital in hospitals %} 
+        <tr>
+          <td>{{ hospital.Hid }}</td>
+          <td>{{ hospital.Hname }}</td> 
+          <td>{{ hospital.Hnum }}</td> 
+          <td>{{ hospital.Haddress }}</td> 
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
