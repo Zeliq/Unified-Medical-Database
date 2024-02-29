@@ -8,10 +8,10 @@ load_dotenv()
 
 # Establish database connection
 db = mysql.connector.connect(
-    host=os.environ.get('DB_HOST', '127.0.0.1'),
-    user=os.environ.get('DB_USER', 'root@localhost'),
-    password=os.environ.get('DB_PASSWORD', 'zeliq2003'),
-    database=os.environ.get('DB_NAME', 'DBMS_MINI_PROJECT')
+    host=os.environ.get('DB_HOST', '127.0.0.1'),    #default
+    user=os.environ.get('DB_USER', 'root@localhost'), #default 
+    password=os.environ.get('DB_PASSWORD', 'PASSWORD'),
+    database=os.environ.get('DB_NAME', 'DB_NAME')
 )
 
 app = Flask(__name__)
