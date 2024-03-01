@@ -7,20 +7,34 @@
     <title>Patient Details</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body align="center">
-    <h1 align="center">Patient Details</h1>
-    <br>
-    <table border="1">
+<body>
+    <h1>Patient Details</h1>
+
+    <!-- Display patient details in tables -->
+    <h2>Patient Information</h2>
+    <table>
         <tr>
-            <th>Attribute</th>
-            <th>Value</th>
+            <th>Patient ID</th>
+            <td>{{ patient.Pid }}</td>
         </tr>
-        {% for key, value in patient_details.patient.items() %}
+        <!-- Add more rows for other patient details -->
+    </table>
+
+    <h2>Medical Records</h2>
+    <table>
+        <!-- Loop through medical records and display in table rows -->
+        {% for record in medical_records %}
             <tr>
-                <td>{{ key }}</td>
-                <td>{{ value }}</td>
+                <th>Medical Record ID</th>
+                <td>{{ record.Mid }}</td>
+                <!-- Add more rows for other medical record details -->
             </tr>
+
+            
         {% endfor %}
     </table>
+
+    <!-- Add more tables for doctor details, relatives, etc. -->
+
 </body>
 </html>

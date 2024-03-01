@@ -264,20 +264,38 @@ def search_patient(patient_id):
 
 
 
+# @app.route('/patient', methods=['POST'])
+# def add_patient():
+#     # (Add data validation here)
+#     try:
+#         data = request.get_json()
+#         with db.cursor() as cursor:
+#             cursor.execute("""
+#                 INSERT INTO patient (Pid, Pname, Pnum, Paddress, Dr_id)
+#                 VALUES (%s, %s, %s, %s, %s)""",
+#                            (data['Pid'], data['Pname'], data['Pnum'], data['Paddress'], data['dr_id'])
+#                            )
+#             db.commit()
+#             return jsonify({'patient_id': cursor.lastrowid}), 201
+
+#     except mysql.connector.Error as err:
+#         app.logger.error('An error occurred: %s', err)
+#         return jsonify({'error': str(err)}), 500
+
+
 @app.route('/patient', methods=['POST'])
 def add_patient():
+    data = request.form  # Access form data
     # (Add data validation here)
     try:
-        data = request.get_json()
         with db.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO patient (Pid, Pname, Pnum, Paddress, Dr_id)
-                VALUES (%s, %s, %s, %s, %s)""",
-                           (data['Pid'], data['Pname'], data['Pnum'], data['Paddress'], data['dr_id'])
-                           )
-            db.commit()
-            return jsonify({'patient_id': cursor.lastrowid}), 201
-
+                INSERT INTO patient (Pid, Pname, Pnum, Paddress, Dr_id) 
+                VALUES (%s, %s, %s, %s, %s)""",  
+                (data['Pid'], data['Pname'], data['Pnum'], data['Paddress'], data['Dr_id']) 
+            )
+        db.commit()
+        return jsonify({'patient_id': cursor.lastrowid}), 201
     except mysql.connector.Error as err:
         app.logger.error('An error occurred: %s', err)
         return jsonify({'error': str(err)}), 500
