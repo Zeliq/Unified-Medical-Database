@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Doctor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form id="del_doc" method="POST" action="/delete-doctor">
+        <div>
+            <label for="patient-id">Doctor ID:</label>
+            <input type="text" id="Did" name="Did" required> 
+        </div>
+        <button type="submit">Delete</button>
+    </form>
+    
+</body>
+</html>

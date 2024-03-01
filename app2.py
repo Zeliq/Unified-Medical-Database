@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import mysql.connector
 from flask_cors import CORS
 import os
@@ -8,10 +8,10 @@ load_dotenv()
 
 # Establish database connection
 db = mysql.connector.connect(
-    host=os.environ.get('DB_HOST', '127.0.0.1'),    #default
-    user=os.environ.get('DB_USER', 'root@localhost'), #default 
-    password=os.environ.get('DB_PASSWORD', 'PASSWORD'),
-    database=os.environ.get('DB_NAME', 'DB_NAME')
+    host=os.environ.get('DB_HOST', '127.0.0.1'),
+    user=os.environ.get('DB_USER', 'root@localhost'),
+    password=os.environ.get('DB_PASSWORD', 'zeliq2003'),
+    database=os.environ.get('DB_NAME', 'DBMS_MINI_PROJECT')
 )
 
 app = Flask(__name__)
@@ -73,8 +73,11 @@ def get_patient_by_id(patient_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
+    try:
+        return render_template('index.html')
+    except mysql.connector.Error as err:
+        app.logger.error('An error occurred: %s', err)
+        return jsonify({'error': str(err)}), 500
 
 # @app.route('/patients')
 # def patients():
@@ -183,23 +186,19 @@ def hospitals():
 #         app.logger.error('An error occurred: %s', err)
 #         return jsonify({'error': str(err)}), 500
     
-@app.route('/search_patient/<patient_id>')
+@app.route('/search_patient/<int:patient_id>')
 def search_patient(patient_id):
     try:
         with db.cursor(dictionary=True) as cursor:
             # Fetch patient details, medical records, doctor details, and relatives in a single query
             cursor.execute("""
-                SELECT DISTINCT
-                    p.*, 
-                    m.*,
-                    d.*,
-                    r.*
+                SELECT p.*, m.*, d.*, r.*
                 FROM Patient p
-                JOIN MedicalRecord m ON p.Pid = m.Med_Id
-                JOIN MakesRecord mr ON m.Mid = mr.Mid
-                JOIN Doctor d ON mr.Did = d.Did
-                JOIN PatientRelative pr ON p.Pid = pr.Pid
-                JOIN Relatives r ON pr.Rid = r.Rid
+                LEFT JOIN MedicalRecord m ON p.Pid = m.Med_Id
+                LEFT JOIN MakesRecord mr ON m.Mid = mr.Mid
+                LEFT JOIN Doctor d ON mr.Did = d.Did
+                LEFT JOIN PatientRelative pr ON p.Pid = pr.Pid
+                LEFT JOIN Relatives r ON pr.Rid = r.Rid
                 WHERE p.Pid = %s
             """, (patient_id,))
 
@@ -219,6 +218,7 @@ def search_patient(patient_id):
     except mysql.connector.Error as err:
         app.logger.error('An error occurred: %s', err)
         return jsonify({'error': str(err)}), 500
+
 
 
 
@@ -300,10 +300,63 @@ def add_patient():
         app.logger.error('An error occurred: %s', err)
         return jsonify({'error': str(err)}), 500
 
+# Add this route to render AddPatients.html
+@app.route('/add-patient')
+def add_patient_page():
+    return render_template('AddPatient.html')
 
+@app.route('/success')
+def successful():
+    return render_template('success.html')
+
+@app.route('/doctor', methods=['POST'])
+def add_doctor():
+    data = request.form
+
+    try:
+        with db.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO Doctor (Did, Dname, Dnum, DType, Hos_id)
+                VALUES (%s, %s, %s, %s, %s)""",
+                (data['Did'], data['Dname'], data['Dnum'], data['DType'], data['Hos_id'])
+            )
+            db.commit()
+            # Redirect to a different page after adding the doctor
+            return redirect(url_for('successful'))
+    except mysql.connector.Error as err:
+        app.logger.error('An error occurred: %s', err)
+        return jsonify({'error': str(err)}), 500
+
+@app.route('/add-doctor')
+def add_doctor_page():
+    return render_template('AddDoctor.html')
 # ... (Other endpoints)
 
 # ... (Rest of the code)
+
+
+@app.route('/delete-doctor', methods=['POST'])
+def delete_doctor():
+    doctor_id = request.form.get('Did')  # Assuming you're passing the doctor_id via form data
+
+    try:
+        with db.cursor() as cursor:
+            # Execute the DELETE query
+            cursor.execute("DELETE FROM Doctor WHERE Did = %s", (doctor_id,))
+            db.commit()
+            
+            # Check if any rows were affected
+            if cursor.rowcount > 0:
+                return redirect(url_for('successful')), 200
+            else:
+                return jsonify({'message': 'Doctor not found'}), 404
+    except mysql.connector.Error as err:
+        app.logger.error('An error occurred: %s', err)
+        return jsonify({'error': str(err)}), 500
+
+@app.route('/del-doc')
+def del_doc():
+    return render_template('Del_Doc.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

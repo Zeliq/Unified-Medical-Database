@@ -1,65 +1,53 @@
-            <!-- index.html -->
+<!-- index.html -->
 
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <title>Hospital Management</title>
-                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-            </head>
-            <body align="center">
-                <h1 align="center">Unified Medical Database</h1>
-                <br>
-                <br>
-                <hr>
-                <!-- Add a search input and button -->
-                <div>
-                    <h2>Search By Patient ID</h2>
-                    <input type="text" id="searchInput" placeholder="Enter Patient ID">
-                    <button onclick="searchPatient()">Search</button>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unified Medical Database</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body align="center">
+    <h1 align="center">Unified Medical Database</h1>
+    <br>
+    <br>
+    <hr>
+    <!-- Add a search input and button -->
+    <div>
+        <h2>Search By Patient ID</h2>
+        <input type="text" id="searchInput" placeholder="Enter Patient ID">
+        <button onclick="searchPatient()">Search</button>
+    </div> 
+    
+    <!-- Add a div element to display the data -->
+    <div id="info"></div>
 
-                <div id="search-results"></div> 
+    <br>
+    <hr>
+    <br>
 
-                <br>
-                <hr>
-                <br>
+    <h2>View All Entries</h2>
+    <a href="/patients">View Patients</a>
+    <a href="/doctors">View Doctors</a>
+    <a href="/hospitals">View Hospitals</a>
 
-                <h2>View All Entries</h2>
-                <a href="/patients">View Patients</a>
-                <a href="/doctors">View Doctors</a>
-                <a href="/hospitals">View Hospitals</a>
+    <br>
+    <hr>
+    <br>
+    <a href="{{ url_for('add_patient_page') }}">Add New Patient</a>
+    <a href="{{ url_for('add_doctor_page') }}">Add New Doctor</a>
+    <a href="{{ url_for('add_patient_page') }}">Add New Hospital</a>
+    <a href="{{ url_for('add_patient_page') }}">Create New Medical Record</a>
+    <a href="{{ url_for('add_patient_page') }}">Add Relatives</a>
+    <br>
+    <hr>
+    <br>
+    <h2>Delete Entries</h2>
+    <br>
+    <br>
+    <a href="{{ url_for('del_doc') }}">Remove a Doctor</a>
+    
 
-                <br>
-                <hr>
-                <br>
-                <h2>Add New Patient</h2>
-                <form id="add-patient-form">
-                    <div>
-                        <label for="patient-id">Patient ID:</label>
-                        <input type="text" id="patient-id" name="Pid" required> 
-                    </div>
-                    <div>
-                        <label for="patient-name">Patient Name:</label>
-                        <input type="text" id="patient-name" name="Pname" required> 
-                    </div>
-                    <div>
-                        <label for="patient-phone">Phone Number:</label>
-                        <input type="text" id="patient-phone" name="Pnum" required> 
-                    </div>
-                    <div>
-                        <label for="patient-address">Address:</label>
-                        <input type="text" id="patient-address" name="Paddress" required> 
-                    </div>
-                    <div>
-                        <label for="doctor-id">Doctor ID:</label>
-                        <input type="text" id="doctor-id" name="Dr_id" required> 
-                    </div>
-                    <button type="submit">Add Patient</button>
-                </form>
-                
-</form>
-
-                <script src="{{ url_for('static', filename='app.js') }}"></script>
-            </body>
-            </html>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

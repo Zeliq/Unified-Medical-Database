@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Patients</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Add New Doctor</h2>
+    <form id="add-doctor-form" method="POST" action="/doctor">
+        <div>
+            <label for="patient-id">Doctor ID:</label>
+            <input type="text" id="patient-id" name="Did" required> 
+        </div>
+        <div>
+            <label for="patient-name">Doctor Name:</label>
+            <input type="text" id="patient-name" name="Dname" required> 
+        </div>
+        <div>
+            <label for="patient-phone">Phone Number:</label>
+            <input type="text" id="patient-phone" name="Dnum" required> 
+        </div>
+        <div>
+            <label for="patient-address">Address:</label>
+            <input type="text" id="patient-address" name="DType" required> 
+        </div>
+        <div>
+            <label for="patient-address">Hos_id:</label>
+            <input type="text" id="Hos_Id" name="Hos_id" required> 
+        </div>
+        <button type="submit">Add Doctor</button>
+    </form>
+    
+</form>
+
+        
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
