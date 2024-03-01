@@ -1,52 +1,50 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unified Medical Database</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body align="center">
-    <h1 align="center">Unified Medical Database</h1>
-    <br>
-    <br>
-    <hr>
-    <!-- Add a search input and button -->
-    <div>
-        <h2>Search By Patient ID</h2>
-        <input type="text" id="searchInput" placeholder="Enter Patient ID">
-        <button onclick="searchPatient()">Search</button>
-    </div> 
-    
-    <!-- Add a div element to display the data -->
-    <div id="info"></div>
+<body>
+    <div class="container">
+        <h1>Unified Medical Database</h1>
+        
+        <div class="card">
+            <h2>Search By Patient ID</h2>
+            <input type="text" id="searchInput" placeholder="Enter Patient ID">
+            <button onclick="searchPatient()">Search</button>
+        </div> 
+        
+        <div id="info" class="card"></div>
 
-    <br>
-    <hr>
-    <br>
+        <hr>
 
-    <h2>View All Entries</h2>
-    <a href="/patients">View Patients</a>
-    <a href="/doctors">View Doctors</a>
-    <a href="/hospitals">View Hospitals</a>
+        <h2>View All Entries</h2>
+        <div class="card">
+            <a href="/patients">View Patients</a><br>
+            <a href="/doctors">View Doctors</a><br>
+            <a href="/hospitals">View Hospitals</a><br>
+        </div>
 
-    <br>
-    <hr>
-    <br>
-    <a href="{{ url_for('add_patient_page') }}">Add New Patient</a>
-    <a href="{{ url_for('add_doctor_page') }}">Add New Doctor</a>
-    <a href="{{ url_for('add_patient_page') }}">Add New Hospital</a>
-    <a href="{{ url_for('add_patient_page') }}">Create New Medical Record</a>
-    <a href="{{ url_for('add_patient_page') }}">Add Relatives</a>
-    <br>
-    <hr>
-    <br>
-    <h2>Delete Entries</h2>
-    <br>
-    <br>
-    <a href="{{ url_for('del_doc') }}">Remove a Doctor</a>
-    
+        <hr>
+
+        <h2>Add New Entries</h2>
+        <div class="card">
+            <a href="{{ url_for('add_patient_page') }}">Add New Patient</a><br>
+            <a href="{{ url_for('add_doctor_page') }}">Add New Doctor</a><br>
+            <a href="{{ url_for('add_patient_page') }}">Add New Hospital</a><br>
+            <a href="{{ url_for('add_patient_page') }}">Create New Medical Record</a><br>
+            <a href="{{ url_for('add_patient_page') }}">Add Relatives</a><br>
+        </div>
+
+        <hr>
+
+        <h2>Delete Entries</h2>
+        <div class="card">
+            <a href="{{ url_for('del_doc') }}">Remove a Doctor</a>
+        </div>
+    </div>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>

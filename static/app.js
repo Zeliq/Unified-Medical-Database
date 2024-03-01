@@ -367,8 +367,10 @@ function renderPatientDetails(data) {
             <table>
                 <tr><th>Medical ID</th><td>${data.patient.Mid}</td></tr>
                 <tr><th>Medical History</th><td>${data.patient.Mhistory}</td></tr>
+                <tr><th>Allergies</th><td>${data.patient.Mallergies}</td></tr>
                 <tr><th>Medical Condition</th><td>${data.patient.Mcondition}</td></tr>
                 <tr><th>Mode Of Consultation</th><td>${data.patient.MODE}</td></tr>
+                <tr><th>Date Of Consultation</th><td>${data.patient.DoC}</td></tr>
             </table>
         `;
     }
